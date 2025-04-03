@@ -1,8 +1,12 @@
 #include <stdio.h>
 
 void print_board(char board[3][3]) {
+    printf("\n");
     for (int i = 0; i < 3; i++) {
         printf("%c|%c|%c\n", board[i][0], board[i][1], board[i][2]);
+        if (i < 2) {
+            printf("-----\n");
+        }
     }
 }
 
@@ -10,7 +14,7 @@ int take_move_row(char player) {
     int row;
     printf("enter row (1-3) for player %c: ", player);
     scanf("%d", &row);
-    row -= 1;
+    row--;
     return row;
 }
 
@@ -18,7 +22,7 @@ int take_move_col(char player) {
     int col;
     printf("enter column (1-3) for player %c: ", player);
     scanf("%d", &col);
-    col -= 1;
+    col--;
     return col;
 }
 
@@ -64,6 +68,7 @@ int main() {
     };
 
     int row, col;
+    int moves = 0;
     char player = 'X';
 
     printf("Welcome to Tic Tac Toe!\n");
@@ -84,9 +89,14 @@ int main() {
         } else {
             player = 'X';
         }
+        moves++;
         if (check_for_win(board)) {
             print_board(board);
             printf("Player %c wins!\n", player == 'X' ? 'O' : 'X');
+            break;
+        } else if (moves == 8) {
+            print_board(board);
+            printf("It's a draw!\n");
             break;
         } else {
             continue;
