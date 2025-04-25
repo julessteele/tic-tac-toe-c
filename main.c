@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 void print_board(char board[3][3]) {
     printf("\n");
@@ -26,37 +27,37 @@ int take_move_col(char player) {
     return col;
 }
 
-int is_valid_move(char board[3][3], int row, int col) {
+bool is_valid_move(char board[3][3], int row, int col) {
     if (row < 0 || row > 2 || col < 0 || col > 2) {
-        return 0;
+        return false;
     }
     if (board[row][col] != ' ') {
-        return 0;
+        return false;
     }
-    return 1;
+    return true;
 }
 
-int check_for_win(char board[3][3]) {
+bool check_for_win(char board[3][3]) {
     // Check rows
     for (int i = 0; i < 3; i++) {
         if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ') {
-            return 1;
+            return true;
         }
     }
     // Check columns
     for (int i = 0; i < 3; i++) {
         if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ') {
-            return 1;
+            return true;
         }
     }
     // Check diagonals
     if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ') {
-        return 1;
+        return true;
     }
     if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' ') {
-        return 1;
+        return true;
     }
-    return 0;
+    return false;
 }
 
 int main() {
@@ -78,7 +79,7 @@ int main() {
         print_board(board);
         row = take_move_row(player);
         col = take_move_col(player);
-        while (is_valid_move(board, row, col) == 0) {
+        while (is_valid_move(board, row, col) == false) {
             printf("Invalid move. Try again.\n");
             row = take_move_row(player);
             col = take_move_col(player);
@@ -102,5 +103,6 @@ int main() {
             continue;
         }
     }
+    
     return 0;
 }
