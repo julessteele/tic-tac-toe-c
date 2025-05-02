@@ -75,7 +75,7 @@ int main() {
     printf("Welcome to Tic Tac Toe!\n");
     printf("Player X goes first.\n");
 
-    while (1) {
+    while (true) {
         print_board(board);
         row = take_move_row(player);
         col = take_move_col(player);
